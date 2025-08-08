@@ -1,4 +1,7 @@
-// RideRequest Model (incorporates bidding)
+// File: server/src/models/rideRequest.model.js
+
+const mongoose = require('mongoose');
+
 const RideRequestSchema = new mongoose.Schema({
   ride: {
     type: mongoose.Schema.Types.ObjectId,
@@ -32,10 +35,12 @@ const RideRequestSchema = new mongoose.Schema({
   }
 });
 
-// optional: update `updatedAt` on each status change
+// Update `updatedAt` whenever the status field changes
 RideRequestSchema.pre('save', function(next) {
   if (this.isModified('status')) {
     this.updatedAt = new Date();
   }
   next();
 });
+
+module.exports = mongoose.model('RideRequest', RideRequestSchema);

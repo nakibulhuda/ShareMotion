@@ -1,4 +1,7 @@
-// Ride Model
+// File: server/src/models/ride.model.js
+
+const mongoose = require('mongoose');
+
 const RideSchema = new mongoose.Schema({
   host: {
     type: mongoose.Schema.Types.ObjectId,
@@ -7,15 +10,14 @@ const RideSchema = new mongoose.Schema({
   },
   startLocation: {
     address: { type: String, required: true },
-    // optional: for geospatial queries
-    coordinates: {
-      type: [Number],      // [longitude, latitude]
+    coordinates: { 
+      type: [Number],   // [longitude, latitude]
       index: '2dsphere'
     }
   },
   endLocation: {
     address: { type: String, required: true },
-    coordinates: {
+    coordinates: { 
       type: [Number],
       index: '2dsphere'
     }
@@ -41,3 +43,5 @@ const RideSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+module.exports = mongoose.model('Ride', RideSchema);
